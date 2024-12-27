@@ -7,11 +7,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 78d60f23a1b8a2d32f400b3c8c06b01142ac7841b75d8a1efcb33515877ba531
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - pytail = tailer:main
@@ -20,11 +20,13 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
   run:
-    - python
+    - python >={{ python_min }}
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - tailer
   commands:
